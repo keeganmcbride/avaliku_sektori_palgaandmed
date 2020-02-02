@@ -3,12 +3,26 @@
 shinyServer(function(input, output) {
   datasetInput <- reactive({
     switch(input$dataset,
+           "kov_palk_2015" = kov_palk_2015,
+           "kov_palk_2016" = kov_palk_2016,
+           "kov_palk_2017" = kov_palk_2017,
            "kov_palk_2018" = kov_palk_2018,
            "kov_palk_2019" = kov_palk_2019,
+           "riik_palk_2015" = riik_palk_2015,
+           "riik_palk_2016" = riik_palk_2016,
+           "riik_palk_2017" = riik_palk_2017,
            "riik_palk_2018" = riik_palk_2018,
            "riik_palk_2019" = riik_palk_2019,
+           "kov_kogu_palk_2014" = kov_kogu_palk_2014,
+           "kov_kogu_palk_2015" = kov_kogu_palk_2015,
+           "kov_kogu_palk_2016" = kov_kogu_palk_2016,
+           "kov_kogu_palk_2017" = kov_kogu_palk_2017,
            "kov_kogu_palk_2018" = kov_kogu_palk_2018,
-           "riik_kogu_palk_2018" = riik_kogu_palk_2018 ) 
+           "riik_kogu_palk_2014" = riik_kogu_palk_2014,
+           "riik_kogu_palk_2015" = riik_kogu_palk_2015,
+           "riik_kogu_palk_2016" = riik_kogu_palk_2016,
+           "riik_kogu_palk_2017" = riik_kogu_palk_2017,
+           "riik_kogu_palk_2018" = riik_kogu_palk_2018) 
   })
 
 
@@ -18,45 +32,46 @@ output$dataview <- renderDataTable({
 })
 
 
-treemapData <- reactive({
 
-    
-      
-    if(input$dataset %in% c("kov_palk_2018", "kov_palk_2019","riik_palk_2018","riik_palk_2019")){
-      data <- datasetInput()[input[["dataview_rows_all"]], ] %>% group_by(Asutus, Struktuuriüksus) %>% summarise(Total = sum(Põhipalk, na.rm = T))
-    }
-    else{
-      data <- datasetInput()[input[["dataview_rows_all"]], ] %>% group_by(Asutus, Struktuuriüksus) %>% summarise(Total = sum(Kokku, na.rm = T))
-      
-  } 
- 
-  
-  treemap <- treemap(data,
-                     index=c("Asutus", "Struktuuriüksus"),
-                     vSize="Total",
-                     vColor = "Total",
-                     palette = "Set3",
-                     type="index")
-  treemap
-  
-})
-
-
-output$treemap <- renderD3tree2({
-  if(input$dataset %in% c("kov_palk_2018", "kov_palk_2019","riik_palk_2018","riik_palk_2019")){
-    
-  d3tree2(treemapData(), rootname = "Total Monthly Salary")
-  }
-    else {
-      d3tree2(treemapData(), rootname = "Total Salary Yearly")
-      
-    
-    }
-})
-
-output$test <- renderTable({
-  treemapData()
-})
+  # treemapData <- reactive({
+  # 
+  #     
+  #       
+  #     if(input$dataset %in% c("kov_palk_2018", "kov_palk_2019","riik_palk_2018","riik_palk_2019")){
+  #       data <- datasetInput()[input[["dataview_rows_all"]], ] %>% group_by(Asutus, Struktuuriüksus) %>% summarise(Total = sum(Põhipalk, na.rm = T))
+  #     }
+  #     else{
+  #       data <- datasetInput()[input[["dataview_rows_all"]], ] %>% group_by(Asutus, Struktuuriüksus) %>% summarise(Total = sum(Kokku, na.rm = T))
+  #       
+  #   } 
+  #  
+  #   
+  #   treemap <- treemap(data,
+  #                      index=c("Asutus", "Struktuuriüksus"),
+  #                      vSize="Total",
+  #                      vColor = "Total",
+  #                      palette = "Set3",
+  #                      type="index")
+  #   treemap
+  #   
+  # })
+  # 
+  # 
+  # output$treemap <- renderD3tree2({
+  #   if(input$dataset %in% c("kov_palk_2018", "kov_palk_2019","riik_palk_2018","riik_palk_2019")){
+  #     
+  #   d3tree2(treemapData(), rootname = "Total Monthly Salary")
+  #   }
+  #     else {
+  #       d3tree2(treemapData(), rootname = "Total Salary Yearly")
+  #       
+  #     
+  #     }
+  # })
+  # 
+  # output$test <- renderTable({
+  #   treemapData()
+  # })
 
 
 

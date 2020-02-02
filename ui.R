@@ -12,7 +12,8 @@ ui <- fluidPage(theme = shinytheme("spacelab"),
                     DT::DTOutput("dataview"),
                     tags$br(),
                     tags$br(),
-                    d3tree2Output("treemap") %>% withSpinner(color = "#3F1A84", type = 4)
+                    tags$h4("Andmed: https://opendata.riik.ee/andmehulgad/avaliku-sektori-palgad/")
+                    # d3tree2Output("treemap") %>% withSpinner(color = "#3F1A84", type = 4)
                     
                   )
                 ))
