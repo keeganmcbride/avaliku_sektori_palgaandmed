@@ -1,0 +1,1 @@
+# avaliku_sektori_palgaandmed
